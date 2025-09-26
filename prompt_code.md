@@ -100,7 +100,8 @@ Elenca a priori **casi limite** e **vincoli** (valori di confine, risorse, condi
 ---
 
 **Conclusione.** L’*art and science* del prompt engineering applicato alla generazione di codice può trasformare gli LLM da generatori “basici” a **partner di sviluppo** capaci di produrre software più robusto, efficiente e manutenibile. 
-**Questi non vanno considerati come sostituti dello sviluppatore ma come tool che permettono l'aumento vertiginoso della produttivita'.**
+
+# **Questi non vanno considerati come sostituti dello sviluppatore ma come tool che permettono l'aumento vertiginoso della produttivita'.**
 
 ---
 
