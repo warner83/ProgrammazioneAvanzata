@@ -11,7 +11,7 @@
   Download: <https://docs.microsoft.com/en-us/java/openjdk/download>  
   Durante l’installazione seleziona **“Set JAVA_HOME variable”**.
 
-- **Apache NetBeans 14** – IDE con supporto Maven, JavaFX, debugging.
+- **Apache NetBeans** – IDE con supporto Maven, JavaFX, debugging.
 
 - **JavaFX & Scene Builder** – Progettazione GUI (il collegamento a NetBeans si configura dopo l’installazione).
 
