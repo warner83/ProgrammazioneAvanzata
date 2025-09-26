@@ -176,8 +176,7 @@ public class CreateBookController {
 ## User
 ```
 I got this error:
-. 13 more
-Caused by: java.lang.IllegalArgumentException: Unable to coerce 20 to class javafx.geometry.Insets.
+java.lang.IllegalArgumentException: Unable to coerce 20 to class javafx.geometry.Insets.
 ```
 
 ## Assistant
@@ -195,7 +194,7 @@ Use `<Insets>` instead of `padding="20"`:
 
 ## User
 ```
-create a java beans for the representation of the data of each book to store the data in a database using the JPA framework
+create a java bean for the representation of the data of each book to store the data in a database using the JPA framework
 ```
 
 ## Assistant
@@ -237,7 +236,12 @@ public class Book {
 
 ## User
 ```
-I am using the spring framework provide a skeleton of  a controller to allow external application to access the books, search books by author, search book by name, search book by year and create new books via REST APIs
+I am using the spring framework. Provide a skeleton of a controller to allow external application to access the books.
+Including the following functionalities:
+- search books by author
+- search book by name
+- search book by year
+- create new books via REST APIs
 ```
 
 ## Assistant
@@ -292,7 +296,7 @@ public class BookController {
 
 ## User
 ```
-provide a curl example to test the methods of the controller
+Some curl examples to test the methods of the controller
 ```
 
 ## Assistant
