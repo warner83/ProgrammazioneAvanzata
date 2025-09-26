@@ -289,3 +289,59 @@ public class BookController {
     }
 }
 ```
+
+## User
+```
+provide a curl example to test the methods of the controller
+```
+
+## Assistant
+
+### Curl Examples for `BookController`
+
+Assuming your Spring Boot application runs on **`http://localhost:8080`**.
+
+---
+
+### 1. Get all books
+```bash
+curl -X GET http://localhost:8080/api/books -H "Accept: application/json"
+```
+
+---
+
+### 2. Search books by author
+```bash
+curl -X GET "http://localhost:8080/api/books/search/author?author=Rowling"      -H "Accept: application/json"
+```
+
+---
+
+### 3. Search books by name
+```bash
+curl -X GET "http://localhost:8080/api/books/search/name?name=Harry"      -H "Accept: application/json"
+```
+
+---
+
+### 4. Search books by year
+```bash
+curl -X GET "http://localhost:8080/api/books/search/year?year=2007"      -H "Accept: application/json"
+```
+
+---
+
+### 5. Create a new book
+```bash
+curl -X POST http://localhost:8080/api/books      -H "Content-Type: application/json"      -d '{
+           "name": "Harry Potter and the Deathly Hallows",
+           "author": "J.K. Rowling",
+           "printingCompany": "Bloomsbury",
+           "year": 2007,
+           "pages": 607,
+           "topic": "Fantasy",
+           "summary": "The final book in the Harry Potter series.",
+           "forUnder18": true
+         }'
+```
+
