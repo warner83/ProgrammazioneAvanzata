@@ -1,10 +1,6 @@
 # Programmazione avanzata — Lezione 1
 **Installazione ambiente e prima applicazione**  
-_GitHub-flavored Markdown notebook_
 
-> [!NOTE]
-> Questo file è pensato per essere letto direttamente su GitHub (o in un qualsiasi viewer Markdown).  
-> Include indice, sezioni operative, checklist, esempi di codice e blocchi *collapsible*.
 
 ---
 
@@ -44,7 +40,7 @@ _GitHub-flavored Markdown notebook_
 
 ## Installazione rapida
 **1) OpenJDK 21**  
-Scarica e installa un JDK 21 (Temurin, Oracle, ecc.). Durante il setup su Windows, seleziona **Set JAVA_HOME**.
+Scarica e installa OpenJDK 21. Durante il setup su Windows, seleziona **Set JAVA_HOME**.
 
 **2) Apache NetBeans**  
 Installa l’ultima versione stabile. Al primo avvio, verifica che il JDK predefinito sia 21.
@@ -53,7 +49,7 @@ Installa l’ultima versione stabile. Al primo avvio, verifica che il JDK predef
 Installa Scene Builder; il collegamento a NetBeans verrà mostrato nella Lezione 3.
 
 **4) MySQL (Server + Workbench)**  
-Installa e imposta la password per l’utente `root`. Esegui il **test di connessione** in Workbench.
+Installa e imposta la password per l’utente `root`. Esegui il **test di connessione** in Workbench. 
 
 > [!IMPORTANT]
 > Dopo l’installazione, apri un terminale e verifica:
