@@ -136,6 +136,8 @@ public class FirstApp {
 > Per configurazioni più avanzate, crea `src/main/resources/log4j2.xml`.
 
 ### HTTP Client (Apache HttpClient 5)
+Esempio: realizzare una app che scarica e mostra il codice HTML di una pagina web.
+
 Dipendenza nel `pom.xml`:
 ```xml
 <dependency>
@@ -163,7 +165,7 @@ public class FirstApp {
 
 ---
 
-## Comandi utili di Maven
+## Comandi utili di Maven (se usato da riga di comando)
 ```bash
 # Compila e scarica le dipendenze
 mvn -q compile
@@ -177,21 +179,6 @@ mvn -q package
 # Esegue la classe main (se configurata)
 mvn -q exec:java
 ```
-
----
-
-## Esercizi
-1. **Setup**: installa JDK 21, NetBeans, Scene Builder e MySQL; verifica la connessione in Workbench.
-2. **Prima app**: crea progetto Maven **FirstApp** e lancialo.
-3. **Log**: aggiungi **Log4j** e stampa un messaggio `INFO`.
-4. **HTTP** *(opzionale)*: aggiungi `httpclient5` e prova una richiesta `GET`.
-5. **Debug**: imposta un breakpoint e prova **Debug** in NetBeans.
-
-## Checkpoint
-- [ ] JDK/NetBeans/Scene Builder/MySQL installati (con test).  
-- [ ] Progetto Maven creato ed eseguito.  
-- [ ] Dipendenza aggiunta e imports risolti.  
-- [ ] Debug funzionante con breakpoint.  
 
 ---
 
