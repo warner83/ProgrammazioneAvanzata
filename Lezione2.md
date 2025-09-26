@@ -1,124 +1,166 @@
-# Lezione 2 — GitHub e versionamento del codice (Notebook in stile GitHub)
+# Lezione 2 — Tool di sviluppo avanzati: GIT, GitLab, Log4j 
 
 > Corso: **Programmazione avanzata**  
-> Obiettivo: comprendere il versionamento con Git, l’uso di GitHub, clonazione, push, pull e branching.
+> Obiettivo: introdurre il controllo di versione con Git, comprendere il flusso di lavoro con repository locali e remoti, sperimentare GitLab e l’integrazione dei test automatizzati, configurare il logging con Log4j.
 
 ---
 
-## Introduzione a Git e GitHub
+## Introduzione al controllo di versione
 
-- **Git**: sistema di versionamento distribuito, tiene traccia delle modifiche ai file.  
-- **GitHub**: piattaforma online per la collaborazione e l’hosting di repository Git.  
-- Obiettivi principali:  
-  - Tenere uno storico del codice.  
-  - Lavorare in team in modo strutturato.  
-  - Gestire branching e merging.
+Un sistema di controllo versione permette di:
+- Tenere traccia della storia dello sviluppo di un progetto.
+- Gestire le modifiche effettuate da più sviluppatori.
+- Ripristinare versioni precedenti in caso di bug.
+- Risolvere i conflitti dovuti a modifiche simultanee sullo stesso file.
 
----
+Il codice e le sue versioni sono memorizzati in un repository (server). Gli sviluppatori scaricano, modificano e caricano le nuove versioni nel repository.
 
-## Installazione e setup
+### Git
+- Tool di controllo versione distribuito: gestisce più repository.
+- Necessita almeno di:
+  - Repository locale (sul PC).
+  - Repository remoto (su server GitLab/GitHub).
 
-1. **Scarica Git** da <https://git-scm.com/downloads>.  
-2. Configura l’identità (una volta sola per PC):
-
-```bash
-git config --global user.name "Nome Cognome"
-git config --global user.email "tuamail@example.com"
-```
-
-3. Verifica le impostazioni:
-
-```bash
-git config --list
-```
+### Piattaforme
+- GitHub o GitLab (in questa lezione si usa GitLab).
 
 ---
 
-## Creare un repository
+## Aree di lavoro in Git
 
-1. **Su GitHub**: crea un nuovo repository (es. `first-repo`).  
-2. **Clona in locale**:
-
-```bash
-git clone https://github.com/utente/first-repo.git
-```
-
-3. Aggiungi file e fai il primo commit:
-
-```bash
-echo "# First Repo" >> README.md
-git add README.md
-git commit -m "primo commit"
-git push origin main
-```
+1. Working directory: tutti i file del progetto (anche temporanei).
+2. Staging area: sottoinsieme dei file destinati al commit.
+3. Repository (locale/remoto): archivio ufficiale delle versioni.
 
 ---
 
-## Flusso di lavoro base
+## Operazioni di base in Git
 
-- **Stato repo**:
-
-```bash
-git status
-```
-
-- **Aggiungere file**:
-
+Aggiungere file alla staging area:
 ```bash
 git add NomeFile.java
 ```
 
-- **Commit locale**:
-
+Creare un commit (repository locale):
 ```bash
 git commit -m "Messaggio descrittivo"
 ```
 
-- **Inviare su GitHub**:
-
+Caricare le modifiche sul repository remoto:
 ```bash
 git push origin main
 ```
 
-- **Aggiornare il codice locale**:
-
+Aggiornare il repository locale con quello remoto:
 ```bash
 git pull origin main
 ```
 
----
-
-## Branching e merging
-
-1. Creare un branch:
-
+Clonare un repository remoto:
 ```bash
-git checkout -b nuova-feature
-```
-
-2. Lavorare sul branch, poi fare commit/push.  
-3. Tornare su `main` e unire le modifiche:
-
-```bash
-git checkout main
-git merge nuova-feature
-```
-
-4. Eliminare branch locali inutili:
-
-```bash
-git branch -d nuova-feature
+git clone https://example.com/utente/progetto.git
 ```
 
 ---
 
-## Esercizi consigliati
+## Operazioni Git in NetBeans
 
-1. Configura Git con nome ed email.  
-2. Crea un repository su GitHub e clonalo in locale.  
-3. Aggiungi un file Java, effettua commit e push.  
-4. Prova a creare un branch, modificarlo, unirlo a `main` e fare push finale.
+- Initialize Git Repository per inizializzare un repository locale da un progetto esistente.
+- Git -> Remote -> Push per collegare e inviare il codice al repository remoto.
+- GitLab fornisce anche un editor web per modifiche rapide; dopo un commit via web, usare Git -> Remote -> Pull in NetBeans per aggiornare il locale.
 
 ---
 
-> Fonte: appunti della **Lezione 2 — GitHub e versionamento del codice**, corso *Programmazione avanzata*.
+## Unit test con Maven
+
+- Maven genera una classe di test con funzioni annotate con `@Test`.
+- Ogni test fallito deve invocare `fail()`.
+- I test sono eseguiti automaticamente durante la compilazione.
+
+Esercizio: creare una funzione nella classe principale, scrivere il test corrispondente e lanciare Maven per verificarne l’esecuzione.
+
+---
+
+## CI/CD con GitLab
+
+- I repository centralizzati possono eseguire test automatici ad ogni push (**CI/CD**).
+- Pipeline tipica:
+  1. Build: `mvn compile`
+  2. Test: `mvn test`
+  3. Deploy: rilascio (opzionale)
+
+Nel file `.gitlab-ci.yml` usare un’immagine Maven (es. `maven:latest`) e definire gli stage `build` e `test`. Ogni commit della pipeline attiva l’esecuzione automatica dei job.
+
+Esercizio: creare un repository su GitLab, aggiungere il progetto con almeno un test Maven e configurare una pipeline CI/CD minima.
+
+---
+
+## Log4j: logging configurabile
+
+Il logging tramite semplici `System.out.println` non è adatto a progetti di dimensioni medio-grandi. È preferibile una libreria configurabile come **Log4j 2**.
+
+### Dipendenze Maven
+Aggiungere al `pom.xml`:
+```xml
+<dependency>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-api</artifactId>
+    <version>2.16.0</version>
+</dependency>
+<dependency>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-core</artifactId>
+    <version>2.16.0</version>
+</dependency>
+```
+
+### File di configurazione `log4j2.xml`
+Creare `src/main/resources/log4j2.xml` con un setup console+file:
+```xml
+<Configuration status="INFO">
+    <Appenders>
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} -  %msg%n" />
+        </Console>
+        <File name="FileAppender" fileName="application-${date:yyyyMMdd}.log" immediateFlush="false" append="true">
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Root level="debug">
+            <AppenderRef ref="ConsoleAppender" />
+            <AppenderRef ref="FileAppender"/>
+        </Root>
+    </Loggers>
+</Configuration>
+```
+
+Se la cartella `resources` non è presente, crearla manualmente.
+
+### Uso nel codice Java
+```java
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+public class FirstApp {
+    private static final Logger logger = LogManager.getLogger(FirstApp.class);
+
+    public static void main(String[] args) {
+        logger.trace("Trace message");
+        logger.debug("Debug message");
+        logger.info("Info message");
+        logger.warn("Warn message");
+        logger.error("Error message");
+        logger.fatal("Fatal message");
+    }
+}
+```
+
+### Progetti modulari (`module-info.java`)
+Nei progetti modulari può essere necessario aggiungere le **requires** per Log4j dentro `module-info.java` (se presente).
+
+Esercizio: modificare il programma per usare la libreria Log4j e verificare la scrittura sia su console sia sul file `application-YYYYMMDD.log`.
+
+---
+
+Fonti: appunti della Lezione 2 — Tool di sviluppo avanzati: GIT, GitLab, Log4j.
