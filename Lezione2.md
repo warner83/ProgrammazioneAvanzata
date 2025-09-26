@@ -1,154 +1,124 @@
-# Programmazione avanzata — Lezione 2
+# Lezione 2 — GitHub e versionamento del codice (Notebook in stile GitHub)
+
+> Corso: **Programmazione avanzata**  
+> Obiettivo: comprendere il versionamento con Git, l’uso di GitHub, clonazione, push, pull e branching.
 
 ---
 
-## Indice
-- [Obiettivi](#obiettivi)
-- [Argomenti](#argomenti)
-- [Guida operativa](#guida-operativa)
-- [Esempi pratici](#esempi-pratici)
-- [Comandi utili](#comandi-utili)
-- [Esercizi](#esercizi)
-- [Checkpoint](#checkpoint)
-- [Troubleshooting](#troubleshooting)
-- [Note](#note)
+## Introduzione a Git e GitHub
+
+- **Git**: sistema di versionamento distribuito, tiene traccia delle modifiche ai file.  
+- **GitHub**: piattaforma online per la collaborazione e l’hosting di repository Git.  
+- Obiettivi principali:  
+  - Tenere uno storico del codice.  
+  - Lavorare in team in modo strutturato.  
+  - Gestire branching e merging.
 
 ---
 
-## Obiettivi
-- Consolidare l'ambiente creato in **Lezione 1**.
-- Integrare il progetto con **JavaFX (FXML + Controller)**, **JDBC/MySQL** e dipendenze Maven.
-- Eseguire e debuggare una demo completa.
+## Installazione e setup
 
-## Argomenti
-- JavaFX: struttura App/FXML/Controller.
-- JDBC & MySQL: connessione, query di prova.
-- Maven: dipendenze e build.
+1. **Scarica Git** da <https://git-scm.com/downloads>.  
+2. Configura l’identità (una volta sola per PC):
 
----
-
-## Guida operativa
-> [!TIP]
-> Verifica prima: `java -version` deve essere 21 e `mvn -v` funzionante.
-
-### 1) Configurazione progetto (Maven)
-- Apri il progetto in NetBeans.
-- Aggiorna `pom.xml` con i moduli necessari (JavaFX, MySQL).
-- Esegui **Build** per scaricare le librerie.
-
-### 2) JavaFX (se previsto)
-- Aggiungi dipendenze `javafx-controls` e `javafx-fxml`.
-- Collega `main.fxml` a un `Controller` con annotazioni `@FXML`.
-- Esegui l'app e verifica l'handler del bottone.
-
-### 3) JDBC/MySQL (se previsto)
-- Aggiungi `mysql-connector-j`.
-- Testa una connessione `SELECT 1` su un DB locale.
-
----
-
-## Esempi pratici
-
-### `pom.xml` (estratto)
-```xml
-<dependencies>
-  <!-- JavaFX -->
-  <dependency>
-    <groupId>org.openjfx</groupId>
-    <artifactId>javafx-controls</artifactId>
-    <version>22.0.1</version>
-  </dependency>
-  <dependency>
-    <groupId>org.openjfx</groupId>
-    <artifactId>javafx-fxml</artifactId>
-    <version>22.0.1</version>
-  </dependency>
-
-  <!-- MySQL Connector/J -->
-  <dependency>
-    <groupId>com.mysql</groupId>
-    <artifactId>mysql-connector-j</artifactId>
-    <version>8.4.0</version>
-  </dependency>
-</dependencies>
-```
-
-### JavaFX minimal
-```java
-// App.java
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
-public class App extends Application {
-  @Override
-  public void start(Stage stage) throws Exception {
-    FXMLLoader fxml = new FXMLLoader(App.class.getResource("main.fxml"));
-    stage.setScene(new Scene(fxml.load(), 600, 400));
-    stage.setTitle("Lezione 2 Demo");
-    stage.show();
-  }
-  public static void main(String[] args) { launch(args); }
-}
-```
-
-```xml
-<!-- main.fxml -->
-<?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.*?>
-<VBox spacing="12.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="it.unipi.demo.MainController">
-  <Label text="Lezione 2 — Demo JavaFX"/>
-  <Button text="Click me" onAction="#onClick"/>
-</VBox>
-```
-
-```java
-// MainController.java
-import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-
-public class MainController {
-  @FXML
-  public void onClick() {
-    new Alert(Alert.AlertType.INFORMATION, "Hello from Lezione 2!").showAndWait();
-  }
-}
-```
-
-### JDBC ping (MySQL)
-```java
-import java.sql.*;
-
-public class DbPing {
-  public static void main(String[] args) throws Exception {
-    String url = "jdbc:mysql://localhost:3306/test";
-    try (Connection c = DriverManager.getConnection(url, "root", "PASSWORD")) {
-      try (PreparedStatement ps = c.prepareStatement("SELECT 1");
-           ResultSet rs = ps.executeQuery()) {
-        if (rs.next()) System.out.println("DB OK: " + rs.getInt(1));
-      }
-    }
-  }
-}
-```
-
----
-
-## Comandi utili
 ```bash
-mvn -q clean package
-mvn -q exec:java
-mvn -q dependency:tree
+git config --global user.name "Nome Cognome"
+git config --global user.email "tuamail@example.com"
+```
+
+3. Verifica le impostazioni:
+
+```bash
+git config --list
 ```
 
 ---
 
+## Creare un repository
 
-## Troubleshooting
-- **JavaFX JPMS**: aggiungi i moduli richiesti e configura VM options se usi moduli.
-- **MySQL**: verifica credenziali/porta e il connettore nel classpath.
-- **Dipendenze**: `mvn -U clean package` per aggiornare la cache.
+1. **Su GitHub**: crea un nuovo repository (es. `first-repo`).  
+2. **Clona in locale**:
 
+```bash
+git clone https://github.com/utente/first-repo.git
+```
+
+3. Aggiungi file e fai il primo commit:
+
+```bash
+echo "# First Repo" >> README.md
+git add README.md
+git commit -m "primo commit"
+git push origin main
+```
+
+---
+
+## Flusso di lavoro base
+
+- **Stato repo**:
+
+```bash
+git status
+```
+
+- **Aggiungere file**:
+
+```bash
+git add NomeFile.java
+```
+
+- **Commit locale**:
+
+```bash
+git commit -m "Messaggio descrittivo"
+```
+
+- **Inviare su GitHub**:
+
+```bash
+git push origin main
+```
+
+- **Aggiornare il codice locale**:
+
+```bash
+git pull origin main
+```
+
+---
+
+## Branching e merging
+
+1. Creare un branch:
+
+```bash
+git checkout -b nuova-feature
+```
+
+2. Lavorare sul branch, poi fare commit/push.  
+3. Tornare su `main` e unire le modifiche:
+
+```bash
+git checkout main
+git merge nuova-feature
+```
+
+4. Eliminare branch locali inutili:
+
+```bash
+git branch -d nuova-feature
+```
+
+---
+
+## Esercizi consigliati
+
+1. Configura Git con nome ed email.  
+2. Crea un repository su GitHub e clonalo in locale.  
+3. Aggiungi un file Java, effettua commit e push.  
+4. Prova a creare un branch, modificarlo, unirlo a `main` e fare push finale.
+
+---
+
+> Fonte: appunti della **Lezione 2 — GitHub e versionamento del codice**, corso *Programmazione avanzata*.
