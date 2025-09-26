@@ -198,8 +198,3 @@ mvn -q exec:java
   Controlla che il plugin <code>exec-maven-plugin</code> sia configurato o crea una configurazione di esecuzione in NetBeans.
 </details>
 
----
-
-## Note e riferimenti
-- Questo notebook riassume i contenuti della **Lezione 1** e fornisce esempi pronti all'uso.
-- Per dettagli e screenshot di installazione, fare riferimento al materiale della lezione.
