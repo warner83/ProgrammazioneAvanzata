@@ -89,7 +89,7 @@ Esempio minimale di `pom.xml` di progetto (con Log4j incluso):
 
 ## Aggiungere una dipendenza (via NetBeans)
 
-1. Apri `pom.xml` → **tasto destro** → **Add Dependency**.  
+1. Apri `pom.xml` → **tasto destro** → **Insert code** → **Add Dependency**.  
 2. Cerca su <https://mvnrepository.com/> il **GroupId** / **ArtifactId** / **Version**.  
 3. Maven scarica la libreria al primo *Build*.
 
