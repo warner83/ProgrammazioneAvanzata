@@ -141,14 +141,16 @@ Task<Void> task = new Task<Void>() {
             PrintStream out = new PrintStream(socket.getOutputStream());
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-            out.println("LOGIN utente");
+            out.println("utente password");
             String line = in.readLine();
 
-            // Aggiornamento interfaccia grafica in modo sicuro
-            Platform.runLater(() -> {
+            // Aggiornamento interfaccia grafica
+            Platform.runLater(new Runnable() {
+            @Override public void run() {
                 campoUtente.setDisable(false);
                 primaryButton.setDisable(false);
                 primaryButton.setText("Riprova");
+            }
             });
 
             in.close();
@@ -177,4 +179,3 @@ Inserire l’invio e la ricezione delle credenziali in un `Task`, disabilitando 
 
 ---
 
-> Fonte: appunti della **Lezione 4 — Operazioni di base con i Socket per applicazioni con funzionalità di rete**, corso *Programmazione avanzata*.
