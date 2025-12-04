@@ -290,4 +290,3 @@ public String conferma(Indirizzo i) {
 
 ---
 
-> Contenuto tratto fedelmente da *Lezione 7.docx*.
